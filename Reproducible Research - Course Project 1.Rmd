@@ -32,7 +32,7 @@ activity_data <- read.csv("activity.csv")
 
 ```{r, echo=TRUE}
 # Processed the data and transformed the data into a suitable table for analysis
-print(head(activity_data, 25), type="html")
+# print(head(activity_data, 5), type="html")
 # Preview the activity data
 str(activity_data)
 # unique(activity_data$steps)
@@ -60,7 +60,7 @@ Steps_per_day <- setNames(aggregate(activity_data$steps, by=list(activity_data$d
 # Steps_per_day$Steps <- as.numeric(Steps_per_day$Steps)
 # str(Steps_per_day)
 # Here a sample of the aggregated data
-head(Steps_per_day, 25)
+# head(Steps_per_day, 5)
 # This step is used to calculate the number of observations with NAs v. without NAs
 nrow(subset(Steps_per_day, is.na(Steps_per_day$Steps)=="TRUE"))
 nrow(subset(Steps_per_day, is.na(Steps_per_day$Steps)=="FALSE"))
@@ -89,7 +89,7 @@ median(Steps_per_day$Steps, na.rm = TRUE)
 ```{r, echo=TRUE}
 # This step is done to aggregate the activity data by interval for the average steps
 Steps_per_time <- aggregate(steps~interval, data=activity_data, FUN = mean, na.action = na.omit)
-head(Steps_per_time, 25)
+# head(Steps_per_time, 5)
 # Load the ggplot2 package
 library("ggplot2")
 # Create a line graph plot to illustrate the average number of steps taken for each 5-minute interval accross all days
@@ -129,7 +129,7 @@ Replace_NAs <- merge(Sub_NAs, Steps_per_time, by = "interval", all.x = TRUE)
 # Reorder columns
 Order_NAs <- Replace_NAs[c("steps", "date", "interval")]
 Order_NAs$steps <- round(Order_NAs$steps, 0)
-head(Order_NAs, 25)
+# head(Order_NAs, 5)
 ```
 
 3. Create a new dataset that is equal to the original dataset but with the missing data filled in.
@@ -171,7 +171,7 @@ Updated_activity_data$date_formatted <- as.Date(Updated_activity_data$date, form
 Updated_activity_data$day_of_week <- weekdays(Updated_activity_data$date_formatted)
 # Use ifelse function to group and assign day of the week to either weekday or weekend
 Updated_activity_data$day_type <- ifelse(Updated_activity_data$day_of_week == "Saturday" | Updated_activity_data$day_of_week == "Sunday", "Weekend", "Weekday")
-head(Updated_activity_data, 25)
+# head(Updated_activity_data, 5)
 ```
 
 2. Make a panel plot containing a time series plot (i.e. \color{red}{\verb|type = "l"|}type="l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
@@ -180,7 +180,7 @@ head(Updated_activity_data, 25)
 # Aggregate the data to show the average steps taken by 5-minute interval on weekdays and weekends
 Steps_per_time_wk <- aggregate(steps~interval+day_type, data=Updated_activity_data, FUN = mean, na.action = na.omit)
 # Sample of mean data
-head(Steps_per_time_wk, 25)
+# head(Steps_per_time_wk, 5)
 # Plot the data using line graphs
 ggplot(data = Steps_per_time_wk, aes(x = interval, y = steps)) + geom_line(color = "blue", size = 1) + facet_grid(rows = vars(day_type))
 ```
