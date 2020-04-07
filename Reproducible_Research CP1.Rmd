@@ -1,8 +1,14 @@
+---
+output:
+  html_document:
+    keep_md: yes
+---
+
 Created by: Joel Rogers
 
 Created on: 4/4/20
 
-Last Edited: 4/5/20
+Last edited: 4/6/20
 
 # Loading and processing the data
 
@@ -60,7 +66,7 @@ nrow(subset(Steps_per_day, is.na(Steps_per_day$Steps)=="FALSE"))
 
 2. If you do not understand the difference between a histogram and a barplot, research the difference between them. Make a histogram of the total number of steps taken each day
 
-```{r, echo=TRUE, fig.height=3, fig.width=3.5}
+```{r, echo=TRUE, fig.height=4, fig.width=5}
 # Create histogram to analyze the range of steps taken per day
 activity_graph <- hist(Steps_per_day$Steps, main= "Steps Per Day (Histogram)", xlab = "Steps", col = "blue", breaks = seq(0, 25000, 2500), xlim = c(0, 25000), ylim = c(0,20))
 text(activity_graph$mids, activity_graph$counts, labels = activity_graph$counts, adj = c(.5,-.5))
@@ -78,7 +84,7 @@ median(Steps_per_day$Steps, na.rm = TRUE)
 
 1. Make a time series plot (i.e. \color{red}{\verb|type = "l"|}type="l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all days (y-axis)
 
-```{r, echo=TRUE, fig.height=1.5, fig.width=3.5}
+```{r, echo=TRUE, fig.height=4, fig.width=6}
 # This step is done to aggregate the activity data by interval for the average steps
 Steps_per_time <- aggregate(steps~interval, data=activity_data, FUN = mean, na.action = na.omit)
 # head(Steps_per_time, 5)
@@ -140,7 +146,7 @@ str(Updated_activity_data)
 
 The mean and median did change. However, the changes are minimal.The mean decreased by less than 1 and the median is lower by 3.
 
-```{r, echo=TRUE, fig.height=2.5, fig.width=4}
+```{r, echo=TRUE, fig.height=4, fig.width=5}
 # Aggregate the updated activity data (NAs replaced with 5-minute interval average steps)
 Updated_steps_per_day <- setNames(aggregate(Updated_activity_data$steps, by=list(Updated_activity_data$date), FUN=sum), c("Date", "Steps"))
 # Generate a histogram, mean and median to determine what, if any, changes occurred as a result of replacing NAs
@@ -168,7 +174,7 @@ Updated_activity_data$day_type <- ifelse(Updated_activity_data$day_of_week == "S
 
 2. Make a panel plot containing a time series plot (i.e. \color{red}{\verb|type = "l"|}type="l") of the 5-minute interval (x-axis) and the average number of steps taken, averaged across all weekday days or weekend days (y-axis). See the README file in the GitHub repository to see an example of what this plot should look like using simulated data.
 
-```{r, echo=TRUE, fig.height=2.5, fig.width=4}
+```{r, echo=TRUE, fig.height=4, fig.width=6}
 # Aggregate the data to show the average steps taken by 5-minute interval on weekdays and weekends
 Steps_per_time_wk <- aggregate(steps~interval+day_type, data=Updated_activity_data, FUN = mean, na.action = na.omit)
 # Sample of mean data

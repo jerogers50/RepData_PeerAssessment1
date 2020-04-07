@@ -4,7 +4,11 @@ output:
     keep_md: yes
 ---
 
+Created by: Joel Rogers
 
+Created on: 4/4/20
+
+Last edited: 4/6/20
 
 # Loading and processing the data
 
